@@ -1,4 +1,4 @@
-# Cineverse – A Movie Awards API & Viewer
+# Cineverse – A Movie & Awards API & Viewer
 Cineverse is a full-stack web application that showcases award-winning films through an interactive movie API and dynamic user interface. It includes BAFTA and Oscar award data, Underrated Treasures (films), Bond film history, and TMDb-sourced content. Users can explore winners and nominees across decades and visualise data through bar graphs, pie charts and mappings.
 
 ## Project Structure
