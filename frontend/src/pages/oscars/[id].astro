@@ -1,0 +1,105 @@
+---
+// make it less glitchy by disabling static prerendering
+export const prerender = false;
+
+// import news and videos from API, and oscar-specific style 
+import NewsList from '../../components/OscarNews.jsx';
+import VideoGallery from '../../components/OscarVideo.jsx';
+import '../../components/OscarStyle.css';
+
+// get film ID from the URL parameters
+const { id } = Astro.params;
+// get the public API from environment variables, localhost is backup 
+const API = import.meta.env.PUBLIC_API_URL || 'http://localhost:5050';
+
+// initalise film data object 
+let filmData = {};
+// get film details based on the provided film ID from the backend API
+try {
+  const res = await fetch(`${API}/api/oscar_section/film/${id}`);
+  if (res.ok) filmData = await res.json();
+} catch (e) {
+    // debugging
+  console.error("Failed to load film details:", e);
+}
+
+// get specific properties from filmData and set default values if they are missing or undefined
+const {
+  title = 'Unknown Title',
+  overview = '',
+  poster_url = '',
+  release_date = '',
+  vote_average = '',
+  tmdb_id = null,
+  oscars = []
+} = filmData;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title} — Oscar History</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="oscars-page">
+    <main class="content">
+      <nav>
+      <!-- Navigation back to home button -->
+        <a href="/" class="home-button">🏠</a>
+      </nav>
+
+       <!-- Section displaying detailed film information -->
+      <section class="oscar-details">
+        <div class="oscar-header">
+          {poster_url && (
+            <img
+              src={poster_url}
+              alt={`Poster for ${title}`}
+              class="film-poster"
+            />
+          )}
+
+          <div class="oscar-meta">
+            <h1>{title}</h1>
+            <p>{overview}</p>
+            <div class="release-rating">
+              <p>📅 <strong>Released:</strong> {release_date || 'N/A'}</p>
+              <p>⭐ <strong>Rating:</strong> {vote_average ? vote_average : 'N/A'}</p>
+            </div>
+            <!-- Link to the film's TMDB page if available -->
+            {tmdb_id && (
+              <a
+                href={`/tmdb/${tmdb_id}`}
+                class="tmdb-button"
+              >
+                View TMDB Page →
+              </a>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <!-- Section displaying Oscar award history for the film -->
+      <section class="oscars-history">
+        <h2>Oscar Awards and Nominations</h2>
+        {oscars.length > 0 ? (
+          <ul>
+            {oscars.map(a => (
+              <li key={a.id}>
+                <strong>{a.year}</strong> — {a.category}
+                {a.winner ? ' 🏆' : ''}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No Oscar records found.</p>
+        )}
+      </section>
+
+      <!-- Load and display related news articles and videos -->
+
+      <NewsList client:load query={`${title} Oscar`} />
+      <VideoGallery client:load query={`${title} Oscar trailer`} />
+    </main>
+  </body>
+</html>

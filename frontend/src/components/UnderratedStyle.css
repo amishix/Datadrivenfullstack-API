@@ -1,0 +1,169 @@
+/* container for underrated films page */
+.underrated-page {
+  background-color: #000; 
+  color: #fff;  
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  padding: 2rem 1rem;
+  max-width: 1400px;  
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* reset defaults */
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  color: #fff;
+}
+
+/* header */
+.underrated-header {
+  font-size: 4rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #FFD700;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* search/sort row */
+.search-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+.search-input,
+.sort-select {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  background: #FFD700;
+  color: #000;
+  border: none;
+  border-radius: 9px;
+  transition: background .2s;
+}
+.search-input::placeholder {
+  color: rgba(0,0,0,0.8);
+  font-weight: 500;
+}
+
+/* film grid */
+.film-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* film card */
+.film-card {
+  background: #181818;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  transition: transform .3s, box-shadow .3s;
+}
+.film-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 15px rgba(255,215,0,0.4);
+}
+
+/* top image */
+.film-card img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+}
+
+/* single padding wrapper with flex gap for all inner elements */
+.film-card-content {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem;       
+  gap: 0.5rem;           
+}
+
+/* title */
+.film-card h2 {
+  color: #FFD700;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;             
+}
+
+/* overview */
+.film-overview {
+  color: #bbb;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* other text */
+.film-card p {
+  color: #ccc;
+  font-size: 0.95rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* review button */
+.review-button {
+  background: #FFD700;
+  color: #000;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background .3s, transform .3s;
+  align-self: flex-start;
+}
+.review-button:hover {
+  background: #ffc107;
+}
+
+/* modal & stars */
+.review-modal {
+  color: #000;
+  font-family: Arial, sans-serif;
+}
+.review-modal svg {
+  color: #FFD700;
+}
+
+/* sort label */
+.sort-label {
+  color: #fff;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* back to home button */
+.home-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: #FFD700;
+  color: #000;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 1.5rem;
+  transition: transform .2s, box-shadow .2s;
+}
+.home-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(255,215,0,0.6);
+}

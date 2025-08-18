@@ -1,0 +1,55 @@
+---
+export const prerender = false;
+
+import Sidebar from '../../components/Sidebar.jsx';
+import MovieDetails from '../../components/MovieDetails.jsx';
+
+const { id } = Astro.params;
+---
+
+<html lang="en">
+  <head>
+    <title>Movie Details | CineVerse</title>
+    <meta charset="UTF-8" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      body {
+        display: flex;
+        background: #0f0f0f;
+        color: #eee;
+        font-family: 'Bebas Neue', sans-serif;
+        height: 100%;
+        min-height: 100vh;
+      }
+      aside {
+        width: 250px;
+        background-color: #111;
+        padding: 2rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      main {
+        flex-grow: 1;
+        padding: 2rem;
+        overflow-x: hidden;
+      }
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <aside>
+      <Sidebar client:load />
+    </aside>
+
+    <main>
+      <MovieDetails id={id} client:load />
+    </main>
+
+  </body>
+</html>

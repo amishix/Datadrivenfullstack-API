@@ -1,0 +1,33 @@
+---
+import './OscarStyle.css';  // import oscar page styles
+
+// current path for active link
+const currentPath = Astro.url.pathname;
+
+// navigation links
+const links = [
+  { href: '/oscarwinners', label: '📜 Timeline' },
+  { href: '/oscarsvisual', label: '📅 By Year' },
+  { href: '/oscars/top-winners', label: '🏆 Top Winners' },
+  { href: '/oscars/wins-vs-noms', label: '⚖️ Wins vs Nominations' },
+  { href: '/oscars/most-awarded-films', label: '🥇 Most Awarded' },
+  { href: '/oscars/category-frequency', label: '📊 Categories' }
+];
+---
+
+<nav aria-label="Oscar Navigation">
+  <!-- nav list -->
+  <ul class="nav-list">
+    {links.map(({ href, label }) => (
+      <li class="nav-item">
+        <a
+          href={href}
+          class:is-active={currentPath === href}
+          aria-current={currentPath === href ? 'page' : undefined}
+        >
+          {label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

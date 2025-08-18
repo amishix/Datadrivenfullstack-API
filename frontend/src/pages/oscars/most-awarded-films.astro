@@ -1,0 +1,55 @@
+---
+import '../../components/OscarStyle.css';
+import OscarsNav from '../../components/OscarsNav.astro';
+import FilmCarousel from '../../components/FilmCarousel.jsx';
+import OscarsBarChart from '../../components/OscarsBarChart.jsx';
+
+// get the public API from environment variables, localhost is backup 
+const API = import.meta.env.PUBLIC_API_URL || 'http://localhost:5050';
+let films = [];
+
+try {
+  const res = await fetch(`${API}/api/most_awarded_films`);
+  films = await res.json();
+} catch (e) {
+  console.error("Failed to fetch most awarded films", e);
+}
+---
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>🥇 Most Awarded Films</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="oscars-page">
+    <main class="content">
+      <div class="page-header">
+        <a href="/" class="home-button">🏠</a>
+        <h1>🥇 Most Awarded Films</h1>
+      </div>
+
+      <OscarsNav />
+
+      <p class="description">
+        These films have dominated the Oscars. Scroll through the cards below to revisit the all-time greatest winners.
+      </p>
+
+      {films.length === 0 ? (
+        <p>No film data available or failed to load.</p>
+      ) : (
+        <>
+          <section class="chart-section">
+            <FilmCarousel films={films} client:only="react" />
+          </section>
+
+          <section class="chart-section">
+            <h2>Wins by Film</h2>
+            <div class="bar-container">
+              <OscarsBarChart chartType="most_awarded_films" client:only="react" />
+            </div>
+          </section>
+        </>
+      )}
+    </main>
+  </body>
+</html>

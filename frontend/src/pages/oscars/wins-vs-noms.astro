@@ -1,0 +1,57 @@
+---
+
+// import styling, oscar navigation and react component for bar chart 
+import '../../components/OscarStyle.css';
+import OscarsNav from '../../components/OscarsNav.astro';
+import DualBarChart from '../../components/DualBarChart.jsx';
+
+// get the public API from environment variables, localhost is backup 
+const API = import.meta.env.PUBLIC_API_URL || 'http://localhost:5050';
+
+// initialising an array for fetched data 
+let data = [];
+
+// fetch the data to compare oscar wins and nominations from backend API
+try {
+  const res = await fetch(`${API}/api/oscars_vs_nominations`);
+  data = await res.json();
+} catch (e) {
+  // debugging if data doesn't load 
+  console.error("Failed to fetch wins vs nominations", e);
+}
+
+// extracting labels for year, wins and nominations data for the dual bar chart 
+const labels = data.map(d => d.year);
+const wins = data.map(d => d.wins);
+const nominations = data.map(d => d.nominations);
+---
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>⚖️ Wins vs Nominations by Year</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="oscars-page">
+    <main class="content">
+      <!--  header containing home button and title -->
+      <div class="page-header">
+        <a href="/" class="home-button">🏠</a>
+        <h1>⚖️ Wins vs Nominations by Year</h1>
+      </div>
+
+      <!-- for oscar specific navigation -->
+      <OscarsNav />
+
+      <!-- section class for wins wins vs nominations -->
+      <section class="chart-section">
+        {data.length > 0 ? (
+           <!-- make the dual bar chart component when data is available -->
+          <DualBarChart labels={labels} wins={wins} nominations={nominations} client:only="react" />
+        ) : (
+          <!-- debugging -->
+          <p>No data available or failed to load.</p>
+        )}
+      </section>
+    </main>
+  </body>
+</html>

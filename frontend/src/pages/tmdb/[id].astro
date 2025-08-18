@@ -1,0 +1,69 @@
+---
+// Disable prerendering for dynamic TMDB movie detail pages
+export const prerender = false;
+
+// Import sidebar navigation and the TMDB movie detail component
+import Sidebar from '../../components/Sidebar.jsx';
+import TMDBMovieDetails from '../../components/TMDBMovieDetails.jsx';
+
+// Extract the dynamic `id` parameter from the URL route
+const { id } = Astro.params;
+---
+
+<html lang="en">
+  <head>
+    <title>Movie Details | CineVerse</title>
+    <meta charset="UTF-8" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      /* Set full dark layout and font styling */
+      body {
+        display: flex;
+        background: #0f0f0f;
+        color: #eee;
+        font-family: 'Bebas Neue', sans-serif;
+        height: 100%;
+        min-height: 100vh;
+      }
+
+      /* Style the sidebar (left column) */
+      aside {
+        width: 250px;
+        background-color: #111;
+        padding: 2rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      /* Main content panel */
+      main {
+        flex-grow: 1;
+        padding: 2rem;
+        overflow-x: hidden;
+      }
+
+      /* Hide scrollbars for a cleaner UI */
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- Sidebar Navigation -->
+    <aside>
+      <Sidebar client:load />
+    </aside>
+
+    <!-- Main content area with dynamic TMDB movie details -->
+    <main>
+      <!-- Pass the movie ID to the component via props -->
+      <TMDBMovieDetails id={id} client:load />
+    </main>
+
+  </body>
+</html>

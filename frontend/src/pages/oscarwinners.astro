@@ -1,0 +1,271 @@
+---
+export const prerender = false;
+
+// import my style, navigation and quotes
+
+import OscarsNav from '../components/OscarsNav.astro';
+import '../components/OscarStyle.css';
+import quotes from '../components/oscar_quotes.js';
+
+// get the public API from environment variables, localhost is backup 
+const API = import.meta.env.PUBLIC_API_URL || 'http://localhost:5050';
+
+let data = {};
+
+// getting oscar data categorised by year from backend api
+try {
+  const res = await fetch(`${API}/api/oscars_by_year`);
+  data = await res.json();
+} catch {
+  console.error('Failed to fetch Oscars by year');
+}
+
+// normalising strings for consistency in quotes 
+const normalize = str => str?.toLowerCase().trim().replace(/’/g, "'");
+
+const categoryAliases = {
+  "actress in a supporting role": "best supporting actress",
+  "actor in a supporting role": "best supporting actor",
+  "actress in a leading role": "best actress",
+  "actor in a leading role": "best actor",
+  "writing (adapted screenplay)": "best adapted screenplay",
+  "writing (original screenplay)": "best original screenplay",
+  "directing": "best director",
+  "picture": "best picture",
+  "best supporting actress": "best supporting actress"
+};
+
+// get the matching quote based on year, category and recipient 
+const getQuote = (year, category, recipient) => {
+  const normalizedCategory = normalize(category);
+  const mappedCategory = categoryAliases[normalizedCategory] || normalizedCategory;
+
+  return quotes.find(q =>
+    Number(q.year) === Number(year) &&
+    normalize(q.category) === mappedCategory &&
+    (
+      normalize(q.recipient) === normalize(recipient) ||
+      normalize(q.recipient).includes(normalize(recipient)) ||
+      normalize(recipient).includes(normalize(q.recipient)) ||
+      normalize(q.recipient).split(" ").some(part => normalize(recipient).includes(part))
+    )
+  );
+};
+
+// sort data by year starting from most recent going to least recent 
+const sorted = Object.entries(data).sort(([a], [b]) => Number(b) - Number(a));
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>📜 Timeline of Oscar Awards and Nominations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+   <!-- navigation back to home  -->
+  <body class="oscars-page">
+    <main class="content">
+      <div class="page-header">
+      <a href="/" class="home-button">🏠</a>
+      <h1>📜 Timeline of Oscar Awards and Nominations</h1>
+      </div>
+
+      <!-- oscar navigation -->
+      <OscarsNav />
+
+
+      <!-- Search bar for timeline -->
+      <div class="search-bar">
+        <input
+          type="text"
+          id="filterInput"
+          placeholder="Search by film, category, or recipient…"
+        />
+      </div>
+
+      
+      <!--  buttons to filter timeline by all, winners, nominees, and quotes -->
+
+
+      <div class="view-filter">
+        <label>
+          <input type="radio" name="viewFilter" value="all" checked />
+          <span>All</span>
+        </label>
+        <label>
+          <input type="radio" name="viewFilter" value="winners" />
+          <span>🏆 Winners Only</span>
+        </label>
+        <label>
+          <input type="radio" name="viewFilter" value="nominees" />
+          <span>🎬 Nominees Only</span>
+        </label>
+        <label>
+          <input type="radio" name="viewFilter" value="quotes" />
+          <span>🗣️ With Quotes</span>
+        </label>
+      </div>
+
+      <!-- dropdown to smoothly jump to a specific year -->
+      <div class="year-nav">
+        Jump to year:
+        <select id="yearSelect">
+          <option value="">Select</option>
+          {sorted.map(([year]) => (
+            <option value={`year-${year}`} key={year}>{year}</option>
+          ))}
+        </select>
+        <button id="jumpButton" disabled>Go</button>
+      </div>
+
+       <!-- Timeline displaying Oscar data by year -->
+      <div class="timeline">
+        {sorted.map(([year, events]) => {
+          const winners = events.filter(e => e.winner);
+          const nominees = events.filter(e => !e.winner);
+          return (
+            <section id={`year-${year}`} key={year}>
+              <h2>{year}</h2>
+
+              {winners.length > 0 && (
+                <div class="winner-block">
+                  <h3>🏆 Winners</h3>
+                  {winners.map(evt => {
+                    const quote = getQuote(evt.year, evt.category, evt.recipient);
+                    return (
+                      <a
+                        href={`/oscars/${evt.movie_id}`}
+                        class="timeline-event"
+                        key={`${evt.movie_id}-${evt.category}-winner`}
+                      >
+                        <img
+                          class="timeline-poster"
+                          src={evt.poster_url || '/fallback-poster.jpg'}
+                          alt={`Poster for ${evt.film}`}
+                        />
+                        <div class="timeline-content">
+                          <strong>{evt.category}</strong><br />
+                          {evt.recipient} — <em>{evt.film}</em>
+
+                          {quote && (
+                            <blockquote style="margin-top: 0.75rem; padding-left: 1rem; border-left: 4px solid #FFD700; color: #FFD700; font-style: italic;">
+                              “{quote.quote}”
+                              <footer style="font-size: 0.85rem; color: #ccc; margin-top: 0.5rem;">
+                                — {quote.recipient}, {quote.category}, {quote.year}
+                                {quote.ai && <span title="AI-generated quote" style="margin-left: 0.4rem;">🤖 <span style="font-size: 0.75rem; color: #aaa;">AI</span></span>}
+                              </footer>
+                            </blockquote>
+                          )}
+                        </div>
+                      </a>
+                    );
+                  })}
+                </div>
+              )}
+
+              {nominees.length > 0 && (
+                <div class="nominee-block">
+                  <h3>🎬 Nominees</h3>
+                  {nominees.map(evt => (
+                    <a
+                      href={`/oscars/${evt.movie_id}`}
+                      class="timeline-event"
+                      key={`${evt.movie_id}-${evt.category}-nominee`}
+                    >
+                      <img
+                        class="timeline-poster"
+                        src={evt.poster_url || '/fallback-poster.jpg'}
+                        alt={`Poster for ${evt.film}`}
+                      />
+                      <div class="timeline-content">
+                        <strong>{evt.category}</strong><br />
+                        {evt.recipient} — <em>{evt.film}</em>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </section>
+          );
+        })}
+      </div>
+
+       <!-- Back-to-top button for accessibility  -->
+      <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
+    </main>
+
+    <script type="module">
+      document.addEventListener('DOMContentLoaded', () => {
+        const filterInput = document.getElementById('filterInput');
+        filterInput.addEventListener('input', () => {
+          const q = filterInput.value.toLowerCase();
+          document.querySelectorAll('.timeline section').forEach(section => {
+            let anyVisible = false;
+            section.querySelectorAll('.timeline-event').forEach(ev => {
+              const txt = ev.textContent.toLowerCase();
+              const show = txt.includes(q);
+              ev.style.display = show ? 'flex' : 'none';
+              if (show) anyVisible = true;
+            });
+            section.style.display = anyVisible ? '' : 'none';
+          });
+        });
+
+        const yearSelect = document.getElementById('yearSelect');
+        const jumpBtn = document.getElementById('jumpButton');
+        yearSelect.addEventListener('change', () => {
+          jumpBtn.disabled = !yearSelect.value;
+        });
+        jumpBtn.addEventListener('click', () => {
+          const sec = document.getElementById(yearSelect.value);
+          if (sec) sec.scrollIntoView({ block: 'start' });
+        });
+
+        const backBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+          backBtn.classList.toggle('show', window.scrollY > 300);
+        });
+        backBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        document.querySelectorAll('input[name="viewFilter"]').forEach(radio => {
+          radio.addEventListener('change', () => {
+            const filter = radio.value;
+            const showQuotesOnly = filter === 'quotes';
+
+            document.querySelectorAll('.timeline section').forEach(section => {
+              const winnerBlock = section.querySelector('.winner-block');
+              const nomineeBlock = section.querySelector('.nominee-block');
+
+              const winnerEvents = winnerBlock?.querySelectorAll('.timeline-event') || [];
+              const nomineeEvents = nomineeBlock?.querySelectorAll('.timeline-event') || [];
+
+              winnerEvents.forEach(event => {
+                const hasQuote = event.innerHTML.includes("blockquote");
+                event.style.display =
+                  filter === 'nominees' ? 'none'
+                  : filter === 'winners' ? 'flex'
+                  : showQuotesOnly ? (hasQuote ? 'flex' : 'none')
+                  : 'flex';
+              });
+
+              nomineeEvents.forEach(event => {
+                event.style.display = filter === 'winners' || filter === 'quotes' ? 'none' : 'flex';
+              });
+
+              const hasVisibleWinners = Array.from(winnerEvents).some(ev => ev.style.display !== 'none');
+              const hasVisibleNominees = Array.from(nomineeEvents).some(ev => ev.style.display !== 'none');
+
+              if (winnerBlock) winnerBlock.style.display = hasVisibleWinners ? '' : 'none';
+              if (nomineeBlock) nomineeBlock.style.display = hasVisibleNominees ? '' : 'none';
+
+              section.style.display = hasVisibleWinners || hasVisibleNominees ? '' : 'none';
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+---
+
+// import styling, oscar navigation and react component for bar chart 
+import '../../components/OscarStyle.css';
+import OscarsNav from '../../components/OscarsNav.astro';
+import InteractiveTopWinners from '../../components/InteractiveTopWinners.jsx';
+
+// get the public API from environment variables, localhost is backup 
+const API = import.meta.env.PUBLIC_API_URL || 'http://localhost:5050';
+
+// initialising an array for fetched data 
+let data = [];
+
+// get the top 100 Oscar winners data from the backend API
+try {
+  const res = await fetch(`${API}/api/top_winners?limit=100`);
+  data = await res.json();
+} catch (e) {
+    // debugging 
+  console.error("Failed to fetch top winners", e);
+}
+---
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>🏆 Top Oscar Winners</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="oscars-page">
+    <main class="content">
+      <header class="page-header">
+        <!-- Header section with back to home button and page title -->
+        <a href="/" class="home-button">🏠</a>
+        <h1>🏆 Top Oscar Winners</h1>
+      </header>
+
+      <!-- Oscars pages navigation  -->
+      <OscarsNav />
+
+      <!-- explaining page to user -->
+
+      <section class="description-section">
+        <p class="description">
+          Discover the most celebrated names in Oscar history. You can adjust filters, sort options, or limit how many entries are shown.
+        </p>
+      </section>
+
+      <!-- Chart section with interactive component or displaying failed message-->
+      <section class="chart-section">
+        {data.length > 0 ? (
+          <InteractiveTopWinners data={data} client:only="react" />
+        ) : (
+          <p style="text-align: center; color: #ccc;">No data available or failed to load.</p>
+        )}
+      </section>
+    </main>
+  </body>
+</html>

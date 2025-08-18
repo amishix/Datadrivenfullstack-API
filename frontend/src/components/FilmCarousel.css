@@ -1,0 +1,56 @@
+/* horizontal scroll container */
+.carousel-container {
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-behavior: smooth; /* smooth scrolling experience */
+}
+
+/* lineup for film cards */
+.carousel-track {
+  display: flex;
+  gap: 1.5rem; 
+  padding: 1rem 0;
+}
+
+/* individual film card styling */
+.film-card {
+  background: #1a1a1a;
+  border-radius: 12px;
+  color: white;
+  width: 180px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* lift and shadow on hover */
+.film-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+}
+
+/* poster image corner rounding */
+.film-card img {
+  width: 100%;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+/* info section inside card */
+.film-info {
+  padding: 0.5rem;
+  text-align: center;
+}
+/* film title text */
+.film-info h3 {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+/* awards badge */
+.badge {
+  background: gold;
+  color: black;
+  font-weight: bold;
+  padding: 0.3rem 0.6rem; 
+  border-radius: 6px;
+  font-size: 0.9rem;
+}

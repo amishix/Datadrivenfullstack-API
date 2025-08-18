@@ -1,0 +1,546 @@
+/* page background and text color */
+.oscars-page {
+    background-color: #000;
+    color: #fff;
+  }
+
+/* main content wrapper */
+ .content {
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 2rem 3rem; 
+}
+
+/* top navigation bar */
+  nav {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  border-bottom: 3px solid #FFD700;
+  background: linear-gradient(90deg, #1a1a1a, #000);
+}
+
+/* nav list */
+.nav-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* nav links */
+.nav-item a {
+  color: #FFD700;
+  background: rgba(255, 215, 0, 0.1);
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #FFD700;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.75px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  display: inline-block;
+}
+
+.nav-item a:hover {
+  background: #FFD700;
+  color: #000;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(255, 215, 0, 0.7);
+}
+
+.nav-item a.is-active {
+  background: #FFD700;
+  color: #111;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  transform: scale(1.1);
+}
+
+  
+
+/* inline page title */
+  .content h1 {
+    display: inline;
+    vertical-align: middle;
+    margin: 0;
+  }
+  
+
+  /* search bar */
+  .search-bar {
+    margin-bottom: 1.5rem;
+  }
+  .search-bar input {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #FFD700;
+    border-radius: 4px;
+    background: #111;
+    color: #fff;
+  }
+  
+  /* year controls */
+  .year-nav {
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+  .year-nav select,
+  .year-nav button {
+    border: 1px solid #FFD700;
+    background: #111;
+    color: #fff;
+    padding: 0.4rem 0.6rem;
+    margin-left: 0.5rem;
+    border-radius: 4px;
+    font-family: inherit;
+  }
+  .year-nav button:disabled {
+    opacity: 0.5;
+  }
+  
+  /* timeline container */
+  .timeline {
+    margin: 2rem 0;
+    padding-left: 2rem;
+    border-left: 4px solid #FFD700;
+  }
+  .timeline section {
+    margin-bottom: 3rem;
+  }
+  .timeline section h2 {
+    margin: 0;
+    font-size: 1.75rem;
+    color: #FFD700;
+    border-bottom: 1px solid #444;
+    padding-bottom: 0.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* timeline events */
+  .timeline-event {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    transition: background 0.2s;
+  }
+  .timeline-event:hover {
+    background: rgba(255, 215, 0, 0.1);
+  }
+  
+  .timeline-poster {
+    flex-shrink: 0;
+    width: 80px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .timeline-event:hover .timeline-poster {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255,215,0,0.5);
+  }
+  
+  .timeline-content {
+    position: relative;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    color: #fff;
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+    font-size: 0.95rem;
+  }
+
+
+  /* back-to-top button */
+  .back-to-top {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    padding: 0.75rem;
+    font-size: 1.25rem;
+    background: #FFD700;
+    color: #111;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .back-to-top.show {
+    opacity: 1;
+  }
+  
+  /* hide scrollbar */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  
+
+  /* news cards section */
+   .oscar-news {
+    margin: 2rem auto;
+    max-width: 1000px;
+    padding: 0 1rem;
+  }
+  .oscar-news h2 {
+    margin-bottom: 1rem;
+    color: #FFD700;
+  }
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .news-card {
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .news-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+  }
+  .news-card-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+  }
+  .news-card-body {
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .news-card-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    line-height: 1.3;
+  }
+  .news-card-title a {
+    color: #FFD700;
+    text-decoration: none;
+  }
+  .news-card-title a:hover {
+    text-decoration: underline;
+  }
+  .news-card-meta {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 0.75rem;
+  }
+  .news-card-desc {
+    font-size: 0.95rem;
+    color: #ddd;
+    line-height: 1.4;
+    /* clamp to two lines */
+    max-height: 2.8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.5rem;
+  }
+  
+/* video section */
+  .oscar-videos {
+    margin: 2rem auto;
+    max-width: 1000px;
+    padding: 0 1rem;
+  }
+  .oscar-videos h2 {
+    margin-bottom: 1rem;
+    color: #FFD700;
+  }
+  .videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .video-wrapper {
+    position: relative;
+    padding-top: 56.25%; /* 16:9 */
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  }
+  .video-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+  }
+  
+
+/* page header layout */
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* chart section styling */
+  .chart-section {
+    background: #1a1a1a;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    margin-bottom: 2rem;
+  }
+  
+  .chart-section .bar-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  /* search controls */
+.search-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: center;
+  }
+  
+  .search-input,
+  .limit-select {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background: #111;
+    color: #fff;
+    border: 2px solid #FFD700;
+    border-radius: 4px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  
+  .search-input::placeholder {
+    color: #ccc;
+  }
+  
+  .search-input:focus,
+  .limit-select:focus {
+    outline: none;
+    border-color: #fff;
+    background: #222;
+    box-shadow: 0 0 0 2px rgba(255,215,0,0.4);
+  }
+  
+  .limit-select {
+    appearance: none;
+    cursor: pointer;
+  }
+  
+  /* tmdb button */
+  .tmdb-button {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #5dc056;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+
+/* details section */
+.oscar-details {
+  background: #1a1a1a;
+  color: #fff;
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+}
+
+.oscar-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.oscar-poster {
+  flex-shrink: 0;
+  width: 200px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.5);
+}
+
+.oscar-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.oscar-meta h1 {
+  font-size: 2rem;
+  color: #FFD700;
+  margin-bottom: 0.5rem;
+}
+
+.oscar-meta p {
+  margin: 0.5rem 0;
+  color: #ccc;
+  line-height: 1.5;
+}
+
+/* list of oscars */
+.oscars-list {
+  margin-top: 2rem;
+  border-top: 1px solid #444;
+  padding-top: 1rem;
+}
+
+.oscars-list h2 {
+  color: #FFD700;
+  margin-bottom: 0.75rem;
+}
+
+.oscars-list ul {
+  padding-left: 1rem;
+  list-style: none;
+  margin: 0;
+}
+
+.oscars-list li {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-left: 3px solid #FFD700;
+  background: #111;
+  border-radius: 4px;
+}
+
+/* standalone film poster */
+
+.film-poster {
+  display: block; 
+  margin: 2rem auto; 
+  max-width: 100%;
+  width: 250px; 
+  height: auto;
+}
+
+/* historical list */
+
+.oscars-history ul {
+  padding-left: 1.2rem;
+  list-style-type: none;
+}
+
+.oscars-history li {
+  background: #111;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-left: 4px solid #FFD700;
+  border-radius: 6px;
+  color: #fff;
+}
+
+/* view filter toggles */
+.view-filter {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.view-filter label {
+  position: relative;
+  cursor: pointer;
+  font-weight: 600;
+  user-select: none;
+}
+
+.view-filter input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.view-filter input[type="radio"] + span,
+.view-filter label span {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border: 2px solid #FFD700;
+  border-radius: 999px;
+  background: #111;
+  color: #FFD700;
+  transition: all 0.2s ease;
+}
+
+.view-filter input[type="radio"]:checked + span,
+.view-filter input[type="radio"]:checked ~ span {
+  background: #FFD700;
+  color: #111;
+  border-color: #FFD700;
+}
+
+.view-filter span:hover {
+  background: rgba(255, 215, 0, 0.2);
+}
+
+/* description area */
+.description-section {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.description {
+  font-size: 1.1rem;
+  color: #ddd;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+/* custom arrow for limit select */
+
+.limit-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background: #111 url("data:image/svg+xml;utf8,<svg fill='gold' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 0.75rem center;
+  background-size: 1rem;
+  padding: 0.5rem 2rem 0.5rem 1rem;
+  border: 2px solid #FFD700;
+  border-radius: 6px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* back to home button */
+.home-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: #FFD700;
+  color: #000;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 1.5rem;
+  transition: transform .2s, box-shadow .2s;
+}
+.home-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(255,215,0,0.6);
+}

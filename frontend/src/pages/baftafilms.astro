@@ -1,0 +1,112 @@
+---
+import Sidebar from '../components/Sidebar.jsx';
+import BaftaFilms from '../components/BaftaFilms.jsx';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>BAFTA Award Winning Movies | CineVerse</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        display: flex;
+        height: 100vh;
+        background-color: #000; /* Deep black */
+        font-family: 'Dancing Script', cursive;
+        color: #700202;
+      }
+      aside {
+        width: 100px;
+        background-color: #000;
+        height: 100vh;
+        padding: 2rem 1rem;
+      }
+      main {
+        flex-grow: 1;
+        padding: 2rem;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        background: #000
+      }
+      h1 {
+        font-size: 3rem;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+      h1 img {
+        height: 60px;
+      }
+
+      section {
+        background: linear-gradient(145deg, #601010, #5e1414);
+        padding: 3rem;
+        border-radius: 15px;
+        border: 5px solid #8e7d00;
+        box-shadow: 0 0 15px rgba(215, 183, 0, 0.656);
+      }
+
+      a {
+        color: #640404;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      a:hover {
+        color: rgb(104, 10, 7); 
+      }
+      footer {
+        margin-top: 4rem;
+        background: rgb(99, 22, 3);
+        color: #111;
+        text-align: center;
+        padding: 1.5rem;
+        font-size: 1rem;
+        border-top: 6px solid #8e7d00;
+      }
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <aside>
+      <Sidebar client:load />
+    </aside>
+
+    <main>
+
+      <!-- BAFTA Header -->
+      <header>
+        <h1 style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
+          <img src="https://patentlyapple.typepad.com/.a/6a0120a5580826970c02b685353deb200d-pi" alt="BAFTA Logo" style="height: 250px;" />
+        </h1>
+      </header>
+
+      <!-- BAFTA Films Component -->
+      <section>
+        <BaftaFilms client:load />
+      </section>
+
+      <footer>
+        CineVerse © 2025 | Built for Movie Lovers 🍿
+      </footer>
+
+    </main>
+
+  </body>
+
+</html>

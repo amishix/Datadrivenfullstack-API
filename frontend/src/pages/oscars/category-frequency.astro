@@ -1,0 +1,35 @@
+---
+// import style for oscar pages, oscar-navigation and react component 
+import '../../components/OscarStyle.css';
+import OscarsNav from '../../components/OscarsNav.astro';
+import InteractiveCategoryFrequency from '../../components/InteractiveCategoryFrequency.jsx';
+---
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>📊Most Frequent Award Categories</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="oscars-page">
+    <main class="content">
+      <div class="page-header">
+        <!-- Page header with back to home button and title -->
+        <a href="/" class="home-button">🏠</a>
+        <h1>📊Most Frequent Award Categories</h1>
+      </div>
+
+      <!-- Oscars navigation component -->
+      <OscarsNav />
+
+      <!-- Description explaining the interactive feature -->
+      <p class="description">
+        Discover the most popular Oscar categories—click on a slice to drill into the latest winners.
+      </p>
+
+      <!-- Section class with the interactive React component visualising category frequency -->
+      <section class="chart-section">
+        <InteractiveCategoryFrequency client:only="react" />
+      </section>
+    </main>
+  </body>
+</html>

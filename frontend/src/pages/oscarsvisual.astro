@@ -1,0 +1,52 @@
+---
+
+// import navigation, react component bar chart and style for oscar pages 
+import '../components/OscarStyle.css';
+import OscarsNav      from '../components/OscarsNav.astro';
+import OscarsBarChart from '../components/OscarsBarChart.jsx';
+
+// get the public API from environment variables, localhost is backup 
+const API = import.meta.env.PUBLIC_API_URL || 'http://localhost:5050';
+
+// getting oscar data categorised by year from backend api
+const res = await fetch(`${API}/api/oscars_by_year`);
+const raw = await res.json();
+
+// sort by year 
+const years = Object.keys(raw)
+  .map(y => Number(y))
+  .sort((a, b) => a - b);
+
+// create labels and value arrays for the bar chart
+const labels = years.map(String);
+const values = years.map(y => raw[y].length);
+---
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>📅 Oscars by Year</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="oscars-page">
+    <main class="content">
+      <div class="page-header">
+      <a href="/" class="home-button">🏠</a>
+        <h1>📅 Oscars by Year</h1>
+      </div>
+
+      <!-- oscar navigation for oscar pages -->
+
+      <OscarsNav />
+
+      <!-- section class for the bar chart visualisation of Oscars by year -->
+      <section class="chart-section">
+        <OscarsBarChart
+          labels={labels}
+          values={values}
+          chartType="oscars_by_year"
+          client:only="react"
+        />
+      </section>
+    </main>
+  </body>
+</html>

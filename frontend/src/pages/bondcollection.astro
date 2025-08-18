@@ -1,0 +1,35 @@
+---
+import BondCollection from '../components/BondCollection.jsx'; // Import the main BondCollection React component
+---
+
+<!-- Set the language for the HTML document -->
+<html lang="en">
+  <head>
+    <!-- Character encoding for the document -->
+    <meta charset="UTF-8" />
+
+    <!-- Title shown on browser tab -->
+    <title>007 | Bond Collection</title>
+
+    <!-- Make the site responsive on all devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Import 'Bebas Neue' font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+
+    <!-- Global inline styles for the body -->
+    <style>
+      body {
+        margin: 0; /* Remove default body margin */
+        background-color: #0f0f0f; /* Very dark grey background for a cinematic look */
+        color: #eee; /* Light text for readability */
+        font-family: 'Bebas Neue', sans-serif; /* Apply the custom bold display font */
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Load the BondCollection component as a React-only client-side component -->
+    <BondCollection client:only="react" />
+  </body>
+</html>

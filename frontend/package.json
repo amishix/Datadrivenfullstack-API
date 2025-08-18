@@ -1,0 +1,28 @@
+{
+  "name": "frontend",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.3.0",
+    "axios": "^1.8.4",
+    "chart.js": "^4.4.9",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^0.511.0",
+    "react": "^19.1.0",
+    "react-chartjs-2": "^5.3.0",
+    "react-dom": "^19.1.0",
+    "react-leaflet": "^5.0.0",
+    "react-router-dom": "^7.6.2",
+    "react-youtube": "^10.1.0",
+    "recharts": "^2.15.3"
+  },
+  "devDependencies": {
+    "astro": "^5.8.0"
+  }
+}

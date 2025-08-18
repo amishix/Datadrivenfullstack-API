@@ -1,0 +1,196 @@
+---
+// Imports: bringing in all components for the CineVerse homepage
+import TMDBSearch from '../components/TMDBSearch.jsx'; // Live TMDB movie search bar
+import GenreRow from '../components/GenreRow.jsx'; // Horizontal movie rows by genre
+import RecommendedMovies from '../components/RecommendedMovies.jsx'; // Scrollable recommendations
+import SearchResults from '../components/SearchResults.jsx'; // Search result grid
+import AccessibilityWidget from '../components/AccessibilityWidget.jsx'; // Accessibility toggle widget
+
+// Select a random video to show as the background hero
+const videoSources = ["/assets/1.mp4", "/assets/2.mp4", "/assets/3.mp4", "/assets/4.mp4", "/assets/5.mp4"];
+const randomVideo = videoSources[Math.floor(Math.random() * videoSources.length)];
+---
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>🎬 CineVerse</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.0/open-dyslexic.min.css" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #0f0f0f;
+        color: #eee;
+        font-family: 'Bebas Neue', sans-serif;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      nav {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        background-color: #111;
+        padding: 1rem 0;
+        font-size: 1.2rem;
+      }
+
+      nav a {
+        color: #aaa;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.2s;
+      }
+
+      nav a:hover {
+        color: #fff;
+      }
+
+      .video-container {
+        position: relative;
+        width: 100%;
+        height: 65vh;
+        overflow: hidden;
+      }
+
+      .video-container video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.4);
+      }
+
+      .video-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .video-overlay h1 {
+        font-size: 4rem;
+        color: #FFD700;
+        text-shadow: 2px 2px 10px black;
+      }
+
+      .search-below {
+        width: 60%;
+        margin: 3rem auto;
+      }
+
+      section {
+        padding: 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      h2 {
+        color: #FFD700;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      footer {
+        margin-top: 4rem;
+        background: #FFD700;
+        color: #111;
+        text-align: center;
+        padding: 2rem;
+        font-size: 1rem;
+      }
+
+      /* Accessibility Styles */
+      body.dyslexia-font {
+        font-family: 'OpenDyslexic', Arial, sans-serif !important;
+      }
+
+      body.extra-spacing p,
+      body.extra-spacing a,
+      body.extra-spacing li {
+        letter-spacing: 0.1em;
+        line-height: 1.6;
+      }
+
+      body.high-contrast {
+        background-color: #000 !important;
+        color: #FFD700 !important;
+      }
+
+      body.light-mode {
+        background-color: #fff !important;
+        color: #111 !important;
+      }
+
+      .accessibility-toggle {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        z-index: 9999;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Accessibility Control in Top-Right -->
+    <div class="accessibility-toggle">
+      <AccessibilityWidget client:load />
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav>
+      <a href="/">Home</a>
+      <a href="/oscarwinners">Oscars</a>
+      <a href="/underrated">Treasures</a>
+      <a href="/bondcollection">Bond</a>
+      <a href="/baftafilms">BAFTA</a>
+    </nav>
+
+    <!-- Background Video Header -->
+    <div class="video-container">
+      <video autoplay muted loop playsinline>
+        <source src={randomVideo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div class="video-overlay">
+        <h1>🎬 CineVerse</h1>
+      </div>
+    </div>
+
+    <!-- TMDB Live Search Bar -->
+    <div class="search-below">
+      <TMDBSearch client:load />
+    </div>
+
+    <!-- Live Results from TMDB -->
+    <SearchResults client:load />
+
+    <!-- Recommended Movies Section -->
+    <section>
+      <h2>Recommended For You</h2>
+      <RecommendedMovies client:load />
+    </section>
+
+    <!-- Movie Genre Rows -->
+    <section>
+      <h2>🎞️ Browse by Genre</h2>
+      <GenreRow client:load />
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      CineVerse © 2025 | Built for Movie Lovers 🍿
+    </footer>
+  </body>
+</html>

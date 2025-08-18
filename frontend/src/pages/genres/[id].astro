@@ -1,0 +1,15 @@
+---
+export const prerender = false;
+
+import GenreMovies from '../../components/GenreMovies.jsx';
+
+
+
+const { id } = Astro.params;
+---
+
+<h1 style="text-align: center;">🎬 Movies by Genre</h1>
+
+<div>
+  <GenreMovies id={id} client:load />
+</div>
