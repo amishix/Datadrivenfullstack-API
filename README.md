@@ -1,7 +1,7 @@
-# 🎬 Cineverse – A Movie Awards API & Viewer
+# Cineverse – A Movie Awards API & Viewer
 Cineverse is a full-stack web application that showcases award-winning films through an interactive movie API and dynamic user interface. It includes BAFTA and Oscar award data, Underrated Treasures (films), Bond film history, and TMDb-sourced content. Users can explore winners and nominees across decades and visualise data through bar graphs, pie charts and mappings.
 
-## 📁 Project Structure
+## Project Structure
 
 ```bash
 API/
@@ -13,7 +13,7 @@ API/
 ├── README.md  # Project overview, setup guide, and documentation
 ```
 
-## 🔧 Requirements
+## Requirements
 
 Backend – Flask API
 - Python
@@ -36,7 +36,7 @@ Frontend – React and Astro
 - react-router-dom
 - chart.js
 
-## 🚀 How to Run the Project
+## How to Run the Project
 
 ### 1. Download ZIP and open on VS code
 
@@ -58,7 +58,7 @@ npm run dev # Start the react/astro server
 ```
 - Runs at local host: http://localhost:4321/
 
-## 🧠 Features
+## Features
 
 - Browse BAFTA winners and nominees from 1940s–2020s
 - Oscar categories with actor, film relationships and data visualisations
@@ -71,9 +71,8 @@ npm run dev # Start the react/astro server
 - Recommeded for you movies
 - Browse movies through genres
 
-GitHub Repo: https://git.arts.ac.uk/23020113/API.git
 
-## 📚 Acknowledgements
+## Acknowledgements
 
 - TMDb API for movie data and images
 - BAFTA & Oscar official records for curated awards data
