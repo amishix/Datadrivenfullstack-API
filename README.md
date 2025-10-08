@@ -81,4 +81,3 @@ npm run dev # Start the react/astro server
 - TMDb API for movie data and images
 - BAFTA & Oscar official records for curated awards data
 
-Project by: Amishi, Saba, Katie
